@@ -1,15 +1,19 @@
-import React, { useContext } from 'react';
-import ContactContext from './ContactContext';
+import React, { useContext } from "react";
+import { AppContext } from "../store/AppContext.js";
 
 const ContactCard = ({ contact }) => {
-  const { deleteContact } = useContext(ContactContext);
+  const { actions } = useContext(AppContext);
+
+  const handleDelete = () => {
+    actions.deleteContact(contact.id);
+  };
 
   return (
-    <div>
-      <h3>{contact.name}</h3>
+    <div className="contact-card">
+      <h3>{contact.full_name}</h3>
       <p>Email: {contact.email}</p>
       <p>Phone: {contact.phone}</p>
-      <button onClick={() => deleteContact(contact.id)}>Delete</button>
+      <button onClick={handleDelete}>Delete</button>
     </div>
   );
 };

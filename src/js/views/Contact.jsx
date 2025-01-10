@@ -1,22 +1,20 @@
 import React, { useContext, useEffect } from "react";
-import { Context } from "../store/appContext.js";
-import {ContactCard} from "../component/ContactCard.jsx";
+import { AppContext } from "../store/AppContext.js";
+import ContactCard from "../components/ContactCard.jsx";
 
 const Contact = () => {
-  const { store, actions } = useContext(Context);
+  const { store, actions } = useContext(AppContext);
 
   useEffect(() => {
     actions.fetchContacts();
-  }, []);
+  }, [actions]);
 
   return (
     <div>
       <h1>Contact List</h1>
-      <div>
-        {store.contacts.map((contact) => (
-          <ContactCard key={contact.id} contact={contact} />
-        ))}
-      </div>
+      {store.contacts.map((contact) => (
+        <ContactCard key={contact.id} contact={contact} />
+      ))}
     </div>
   );
 };

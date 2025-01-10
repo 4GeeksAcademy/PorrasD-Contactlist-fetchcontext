@@ -4,57 +4,50 @@ const getState = ({ getStore, getActions, setStore }) => {
 		contacts: [],
 	  },
 	  actions: {
-		// Fetch all contacts
 		fetchContacts: async () => {
 		  try {
-			const response = await fetch("https://playground.4geeks.com/contact/docs");
+			const response = await fetch("https://playground.4geeks.com/contact");
 			const data = await response.json();
 			setStore({ contacts: data });
 		  } catch (error) {
 			console.error("Error fetching contacts:", error);
 		  }
 		},
-  
-		// Add a new contact
-		addContact: async (newContact) => {
+		addContact: async (contact) => {
 		  try {
-			const response = await fetch("https://playground.4geeks.com/contact/docs", {
+			const response = await fetch("https://playground.4geeks.com/contact", {
 			  method: "POST",
 			  headers: { "Content-Type": "application/json" },
-			  body: JSON.stringify(newContact),
+			  body: JSON.stringify(contact),
 			});
 			if (response.ok) {
-			  getActions().fetchContacts(); // Refresh the contact list
+			  getActions().fetchContacts();
 			}
 		  } catch (error) {
 			console.error("Error adding contact:", error);
 		  }
 		},
-  
-		// Update a contact
-		updateContact: async (id, updatedContact) => {
+		updateContact: async (id, contact) => {
 		  try {
-			const response = await fetch(`https://playground.4geeks.com/contact/docs/${id}`, {
+			const response = await fetch(`https://playground.4geeks.com/contact/${id}`, {
 			  method: "PUT",
 			  headers: { "Content-Type": "application/json" },
-			  body: JSON.stringify(updatedContact),
+			  body: JSON.stringify(contact),
 			});
 			if (response.ok) {
-			  getActions().fetchContacts(); // Refresh the contact list
+			  getActions().fetchContacts();
 			}
 		  } catch (error) {
 			console.error("Error updating contact:", error);
 		  }
 		},
-  
-		// Delete a contact
 		deleteContact: async (id) => {
 		  try {
-			const response = await fetch(`https://playground.4geeks.com/contact/docs/${id}`, {
+			const response = await fetch(`https://playground.4geeks.com/contact/${id}`, {
 			  method: "DELETE",
 			});
 			if (response.ok) {
-			  getActions().fetchContacts(); // Refresh the contact list
+			  getActions().fetchContacts();
 			}
 		  } catch (error) {
 			console.error("Error deleting contact:", error);
@@ -65,3 +58,5 @@ const getState = ({ getStore, getActions, setStore }) => {
   };
   
   export default getState;
+
+  
